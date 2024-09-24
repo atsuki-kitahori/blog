@@ -52,8 +52,20 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>記事一覧</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 rounded-lg shadow-md w-96">
+<body class="bg-gray-100 flex flex-col items-center min-h-screen">
+    <header class="bg-white w-full shadow-md">
+        <div class="container mx-auto flex justify-between items-center py-4 px-6">
+            <h1 class="text-2xl font-bold">こんにちは！<?php echo htmlspecialchars(
+                $_SESSION['user_name']
+            ); ?>さん</h1>
+            <nav class="flex space-x-4">
+                <a href="index.php" class="text-gray-700 hover:text-gray-900">ホーム</a>
+                <a href="mypage.php" class="text-gray-700 hover:text-gray-900">マイページ</a>
+                <a href="logout.php" class="text-gray-700 hover:text-gray-900">ログアウト</a>
+            </nav>
+        </div>
+    </header>
+    <div class="bg-white p-8 rounded-lg shadow-md w-96 mt-8">
         <h2 class="text-2xl font-bold mb-6 text-center">記事一覧</h2>
         <form method="GET" class="mb-6">
             <input type="text" name="keyword" placeholder="キーワード" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
