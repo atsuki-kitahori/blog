@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         ]);
 
         if ($result) {
-            $_SESSION['success'] = 'ユーザー登録が完了しました';
+            $_SESSION['success'] = '登録できました';
             header('Location: signin.php');
             exit();
         } else {
