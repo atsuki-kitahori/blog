@@ -78,7 +78,7 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <p class="text-gray-800"><?php echo htmlspecialchars(
                     mb_strimwidth($article['contents'], 0, 15, '...')
                 ); ?></p>
-                <a href="article_detail.php?id=<?php echo $article[
+                <a href="detail.php?id=<?php echo $article[
                     'id'
                 ]; ?>" class="text-blue-500 hover:underline">記事詳細へ</a>
             </div>
