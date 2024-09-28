@@ -52,7 +52,7 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <title>記事一覧</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 flex flex-col items-center min-h-screen">
+<body class="bg-gray-100 flex flex-col min-h-screen">
     <header class="bg-white w-full shadow-md">
         <div class="container mx-auto flex justify-between items-center py-4 px-6">
             <h1 class="text-2xl font-bold">こんにちは！<?php echo htmlspecialchars(
@@ -65,36 +65,49 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
             </nav>
         </div>
     </header>
-    <div class="bg-white p-8 rounded-lg shadow-md w-96 mt-8">
-        <h2 class="text-2xl font-bold mb-6 text-center">記事一覧</h2>
+    <main class="container mx-auto mt-8 px-4">
+        <h2 class="text-4xl font-bold mb-6">絞り込み検索</h2>
         <form method="GET" class="mb-6">
-            <input type="text" name="keyword" placeholder="キーワード" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500 mb-4">
-            <div class="flex justify-between mb-4">
-                <label>
-                    <input type="radio" name="order" value="new" checked> 新着順
+            <div class="flex items-center space-x-4 mb-4">
+                <input type="text" name="keyword" placeholder="キーワードを入力" class="flex-grow px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition duration-300">検索</button>
+            </div>
+            <div class="flex items-center space-x-4">
+                <label class="inline-flex items-center">
+                    <input type="radio" name="order" value="new" <?php echo $order ===
+                    'new'
+                        ? 'checked'
+                        : ''; ?> class="form-radio text-blue-500">
+                    <span class="ml-2">新着順</span>
                 </label>
-                <label>
-                    <input type="radio" name="order" value="old"> 古い順
+                <label class="inline-flex items-center">
+                    <input type="radio" name="order" value="old" <?php echo $order ===
+                    'old'
+                        ? 'checked'
+                        : ''; ?> class="form-radio text-blue-500">
+                    <span class="ml-2">古い順</span>
                 </label>
             </div>
-            <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300">検索</button>
         </form>
-        <?php foreach ($articles as $article): ?>
-            <div class="mb-4">
-                <h3 class="text-xl font-bold"><?php echo htmlspecialchars(
-                    $article['title']
-                ); ?></h3>
-                <p class="text-gray-600"><?php echo htmlspecialchars(
-                    $article['created_at']
-                ); ?></p>
-                <p class="text-gray-800"><?php echo htmlspecialchars(
-                    mb_strimwidth($article['contents'], 0, 15, '...')
-                ); ?></p>
-                <a href="detail.php?id=<?php echo $article[
-                    'id'
-                ]; ?>" class="text-blue-500 hover:underline">記事詳細へ</a>
-            </div>
-        <?php endforeach; ?>
-    </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            <?php foreach ($articles as $article): ?>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <img src="https://source.unsplash.com/random/400x300?nature" alt="記事イメージ" class="w-full h-48 object-cover mb-4 rounded">
+                    <h3 class="text-xl font-bold mb-2"><?php echo htmlspecialchars(
+                        $article['title']
+                    ); ?></h3>
+                    <p class="text-gray-600 mb-2"><?php echo htmlspecialchars(
+                        $article['created_at']
+                    ); ?></p>
+                    <p class="text-gray-800 mb-4"><?php echo htmlspecialchars(
+                        mb_strimwidth($article['contents'], 0, 60, '...')
+                    ); ?></p>
+                    <a href="detail.php?id=<?php echo $article[
+                        'id'
+                    ]; ?>" class="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-600 transition duration-300">記事詳細へ</a>
+                </div>
+            <?php endforeach; ?>
+        </div>
+    </main>
 </body>
 </html>
