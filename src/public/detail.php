@@ -38,6 +38,13 @@ if (!$article) {
     header('Location: index.php');
     exit();
 }
+
+// コメントの取得
+$commentStmt = $pdo->prepare(
+    'SELECT * FROM comments WHERE blog_id = ? ORDER BY created_at DESC'
+);
+$commentStmt->execute([$article_id]);
+$comments = $commentStmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <!DOCTYPE html>
@@ -71,6 +78,28 @@ if (!$article) {
                 <?php echo nl2br(htmlspecialchars($article['contents'])); ?>
             </div>
             <a href="index.php" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">一覧ページへ</a>
+        </div>
+    </div>
+    <div class="container mx-auto mt-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold mb-4">コメント一覧</h3>
+            <?php if (empty($comments)): ?>
+                <p>まだコメントはありません。</p>
+            <?php else: ?>
+                <?php foreach ($comments as $comment): ?>
+                    <div class="border-b border-gray-200 py-4">
+                        <p class="font-bold"><?php echo htmlspecialchars(
+                            $comment['commenter_name']
+                        ); ?></p>
+                        <p class="text-gray-600 text-sm"><?php echo htmlspecialchars(
+                            $comment['created_at']
+                        ); ?></p>
+                        <p class="mt-2"><?php echo nl2br(
+                            htmlspecialchars($comment['comments'])
+                        ); ?></p>
+                    </div>
+                <?php endforeach; ?>
+            <?php endif; ?>
         </div>
     </div>
     <div class="container mx-auto mt-8">
