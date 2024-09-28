@@ -64,6 +64,9 @@ $articles = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 <a href="detail.php?id=<?php echo $article[
                     'id'
                 ]; ?>" class="text-blue-500 hover:underline">記事詳細へ</a>
+                <a href="edit.php?id=<?php echo $article[
+                    'id'
+                ]; ?>" class="text-green-500 hover:underline ml-2">編集</a>
             </div>
         <?php endforeach; ?>
     </div>
