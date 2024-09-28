@@ -73,5 +73,18 @@ if (!$article) {
             <a href="index.php" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">一覧ページへ</a>
         </div>
     </div>
+    <div class="container mx-auto mt-8">
+        <div class="bg-white p-6 rounded-lg shadow-md">
+            <h3 class="text-xl font-bold mb-4">コメントを投稿</h3>
+            <form action="comment/store.php" method="post" class="space-y-4">
+                <input type="hidden" name="article_id" value="<?php echo htmlspecialchars(
+                    $article_id
+                ); ?>">
+                <input type="text" name="commenter_name" required placeholder="投稿者名" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
+                <textarea name="content" required placeholder="コメント内容" rows="4" class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+                <button type="submit" class="bg-green-500 text-white py-2 px-4 rounded-md hover:bg-green-600 transition duration-300">コメントを投稿</button>
+            </form>
+        </div>
+    </div>
 </body>
 </html>
