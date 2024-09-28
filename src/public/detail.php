@@ -67,9 +67,10 @@ if (!$article) {
             <p class="text-gray-600 mb-4">作成日: <?php echo htmlspecialchars(
                 $article['created_at']
             ); ?></p>
-            <div class="prose max-w-none">
+            <div class="prose max-w-none mb-6">
                 <?php echo nl2br(htmlspecialchars($article['contents'])); ?>
             </div>
+            <a href="index.php" class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300">一覧ページへ</a>
         </div>
     </div>
 </body>
