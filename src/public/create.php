@@ -36,5 +36,11 @@ if (!isset($_SESSION['user_id'])) {
             <button type="submit" class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600 transition duration-300">新規作成</button>
         </form>
     </div>
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+            <?php echo htmlspecialchars($_SESSION['error']); ?>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
 </body>
 </html>
